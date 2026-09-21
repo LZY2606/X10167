@@ -1,0 +1,42 @@
+name: Offline verification
+
+on:
+  workflow_call:
+    inputs:
+      upload-manifest:
+        description: Upload artifacts/verify-manifest.json as a build artifact
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium for browser smoke
+        run: pnpm exec playwright install chromium --with-deps
+
+      - name: Run offline verification
+        run: pnpm run verify:offline
+
+      - name: Upload verification manifest
+        if: ${{ inputs.upload-manifest && always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-manifest
+          path: artifacts/verify-manifest.json
+          if-no-files-found: error

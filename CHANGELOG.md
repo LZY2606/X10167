@@ -5,6 +5,14 @@ Headlines: Added, Changed, Deprecated, Removed, Fixed, Security
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- `pnpm run verify:offline` — single offline release-verification entry point. Runs typecheck, lint, unit tests, the export-discovered adapter matrix, the SvelteKit example-route build, prepack/package content checks and local Playwright browser smoke scenarios. Results (tool versions, discovered adapters, test/route sets, packed-file digests, per-stage details without absolute paths or timings) are written to `artifacts/verify-manifest.json`; failures still produce a complete manifest and a non-zero exit code.
+- Adapter matrix test (`src/tests/verify/`) that discovers adapters from the actual `adapters` export entry and validates each server/client adapter pair with the same nested-object, array, nullable, default and error-path fixtures. A new adapter or export without coverage fails the matrix.
+- `/v2/verify-smoke` route used by the local browser smoke (valid submit, server error, array add/remove, reset, two-form isolation).
+
 ## [2.30.2] - 2026-07-04
 
 ### Security

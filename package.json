@@ -1,7 +1,7 @@
 {
 	"name": "sveltekit-superforms",
 	"version": "2.30.2",
-	"author": "Andreas Söderlund <ciscoheat@gmail.com> (https://blog.encodeart.dev)",
+	"author": "Andreas S\u00f6derlund <ciscoheat@gmail.com> (https://blog.encodeart.dev)",
 	"description": "Making SvelteKit forms a pleasure to use!",
 	"keywords": [
 		"sveltekit",
@@ -52,13 +52,14 @@
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"prepack": "svelte-kit sync && svelte-package && publint",
-		"prepublishOnly": "npm run test && npm run lint && npm run check && npm run prepack && npm run check:adapters",
+		"prepublishOnly": "pnpm run verify:offline",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"check:adapters": "node types-exist.js",
 		"test": "vitest run",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"verify:offline": "node scripts/verify-offline.mjs"
 	},
 	"exports": {
 		".": {
@@ -204,6 +205,7 @@
 		"@types/throttle-debounce": "^5.0.2",
 		"@types/uuid": "^10.0.0",
 		"@valibot/i18n": "1.0.0",
+		"class-transformer": "^0.5.1",
 		"decimal.js": "^10.6.0",
 		"eslint": "^9.39.4",
 		"eslint-config-prettier": "^10.1.8",
@@ -212,9 +214,11 @@
 		"globals": "^16.5.0",
 		"i18next": "^25.10.10",
 		"only-allow": "^1.2.2",
+		"playwright": "^1.63.0",
 		"prettier": "^3.9.4",
 		"prettier-plugin-svelte": "^3.5.2",
 		"publint": "^0.3.21",
+		"reflect-metadata": "^0.2.2",
 		"sass": "^1.101.0",
 		"svelte": "^5.56.4",
 		"svelte-check": "^4.7.1",

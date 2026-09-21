@@ -341,7 +341,20 @@ const avatar = fileProxy(form, 'avatar');
 - `zod4Union.test.ts` - Zod v4 discriminated unions
 - `formData.test.ts` - FormData parsing and coercion
 
-**Test Command:** `pnpm test` (runs all tests)  
+**Test Command:** `pnpm test` (runs all tests)
+
+**Offline release verification:** `pnpm run verify:offline` (dependency prep:
+`pnpm install --frozen-lockfile`). One entry point runs typecheck, lint, unit
+tests, the export-discovered adapter matrix
+(`src/tests/verify/matrix.test.ts`, fixtures in `src/tests/verify/fixtures/`),
+the SvelteKit build, prepack + package content checks
+(`scripts/verify-package.mjs`) and local Chromium smoke
+(`scripts/verify-browser.mjs`, `/v2/verify-smoke`). It writes
+`artifacts/verify-manifest.json` (no absolute paths or durations) and exits
+non-zero on any stage failure. CI/release workflows call this command; do not
+introduce a parallel build/test sequence. When adding an adapter, add its
+fixture next to the others or the matrix fails; when adding a package export,
+make sure its target resolves in `dist` (package-check enforces it).
 **Previous test invocation issue:** Running tests with absolute file paths didn't work; must run from project root with correct test globs.
 
 ---
