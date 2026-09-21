@@ -344,6 +344,8 @@ const avatar = fileProxy(form, 'avatar');
 **Test Command:** `pnpm test` (runs all tests)  
 **Previous test invocation issue:** Running tests with absolute file paths didn't work; must run from project root with correct test globs.
 
+**Release verification:** `pnpm run verify:offline` runs the full offline release gate (install with frozen lockfile, typecheck, lint, unit tests, adapter matrix in `src/tests/adapterMatrix.test.ts`, SvelteKit build, prepack package content check, local browser smoke) and writes `artifacts/verify-manifest.json`. When adding an adapter export to `src/lib/adapters/index.ts`, add a matching fixture builder in `adapterMatrix.test.ts` or the matrix self-test fails.
+
 ---
 
 ## Type System

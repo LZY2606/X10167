@@ -5,6 +5,12 @@ Headlines: Added, Changed, Deprecated, Removed, Fixed, Security
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- `pnpm run verify:offline`: a single offline verification entry for releases. It runs the frozen-lockfile install, typecheck, lint, unit tests, an adapter matrix (discovered from the actual adapter exports, validating identical nested/array/nullable/default/error-path fixtures through both server and client adapters), the SvelteKit build, prepack package content checks with file digests, and a local browser smoke suite (valid submit, server error, array add/remove, reset, two-form isolation). Results are recorded in `artifacts/verify-manifest.json` without absolute paths or timings, and CI/release jobs call the same entry.
+
 ## [2.30.2] - 2026-07-04
 
 ### Security

@@ -43,3 +43,6 @@ coverage/
 .vite/
 .turbo/
 *.tsbuildinfo
+
+# verify:offline output
+artifacts/
